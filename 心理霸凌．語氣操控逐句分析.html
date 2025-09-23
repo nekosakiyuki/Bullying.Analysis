@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>心理霸凌分析</title>
+  <style>
+    body {
+      background: linear-gradient(120deg, #183c6b 0%, #254b78 60%, #182142 100%);
+      font-family: "Noto Sans TC", "Microsoft JhengHei", Arial, sans-serif;
+      color: #d7e9ff;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      letter-spacing: 0.02em;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
+    .analysis-section {
+      max-width: 980px;
+      margin: 48px auto 52px auto;
+      padding: 0 4vw;
+      animation: fadeInSection 1.1s cubic-bezier(.26,.91,.61,1.08);
+    }
+    @keyframes fadeInSection {
+      from { opacity:0; transform: translateY(30px);}
+      to   { opacity:1; transform: none;}
+    }
+    .analysis-title-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      margin-bottom: 0.5em;
+      margin-top: 0.6em;
+    }
+    .analysis-title {
+      font-size: 2.13em;
+      color: #29b1ff;
+      font-weight: 900;
+      letter-spacing: .09em;
+      line-height: 1.19;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: none;
+      text-shadow: 0 2px 9px #29b1ff19,0 1.5px 0 #162b44;
+      border-left: 6px solid #47aaff;
+      padding-left: 16px;
+    }
+    .analysis-title-icon {
+      font-size: 1.2em;
+      color: #47aaff;
+      filter: drop-shadow(0 2px 8px #47aaff50);
+      margin-right: 4px;
+      margin-left: -2px;
+    }
+    .analysis-title-sub {
+      color: #b6e5ff;
+      font-size: 1.08em;
+      font-weight: 600;
+      margin-left: 2px;
+      letter-spacing: .04em;
+      margin-bottom: 1px;
+      border-left: 4px solid #47aaff55;
+      padding-left: 12px;
+      margin-top: 0.28em;
+    }
+    .analysis-title-divider {
+      width: 100%;
+      height: 2.2px;
+      background: linear-gradient(90deg, #47aaff 30%, #b6e5ff 100%);
+      border: none;
+      border-radius: 1.5px;
+      margin: 18px 0 24px 0;
+      opacity: 0.82;
+    }
+    .analysis-section .lead {
+      color:#e6f1ff;
+      background:linear-gradient(90deg,#294b8b 70%,#47aaff25 100%);
+      padding: 16px 20px 13px 20px;
+      border-radius:11px;
+      margin-bottom: 30px;
+      font-size:1.07em;
+      box-shadow:0 1px 6px #223b5a14;
+      border-left: 4px solid #47aaff;
+      line-height: 1.95;
+      position: relative;
+      animation: fadeInSection 1.8s 0.1s backwards;
+    }
+    .analysis-section .lead b {
+      color:#ffb44f;
+      font-weight:bold;
+      background:linear-gradient(90deg,#ffb44f 40%,#ffe6b0 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 0.08em;
+    }
+    .analysis-section .lead .highlight {
+      color:#9cf6c7;
+      font-weight:bold;
+      letter-spacing: 0.04em;
+    }
+    .analysis-section .lead .danger {
+      color:#ff7e7e;
+      font-weight:bold;
+      letter-spacing: 0.04em;
+    }
+
+    .analysis-list {
+      width: 100%;    /* 讓分析卡片區塊跟標題寬度一致 */
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin: 0 0 32px 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .analysis-card {
+      background: linear-gradient(120deg,#21375c 85%,#2f65c9 115%);
+      border-radius: 13px;
+      padding: 0;
+      position: relative;
+      box-shadow:
+        0 0 0 2px #37aaff66,
+        0 3px 12px #193c6340;
+      overflow: visible;
+      animation: fadeInSection 1.2s backwards;
+      border: 0;
+      margin-top: 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .analysis-card::before {
+      content: "";
+      position: absolute;
+      inset: -2.5px;
+      z-index: 0;
+      border-radius: 16px;
+      background: linear-gradient(110deg, #47aaff77 18%, #2f65c980 70%, #7cd9ff55 100%);
+      filter: blur(0.3px) brightness(1.06);
+      opacity: 0.32;
+      box-shadow: 0 0 10px #47aaff33;
+      pointer-events: none;
+    }
+    .analysis-card-inner {
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(109deg,#23345b 85%,#338edc10 110%);
+      border-radius: 11px;
+      padding: 16px 18px 13px 18px;
+      box-shadow: 0 1px 6px #47aaff09;
+      font-size: 1.01em;
+      color: #eaf5ff;
+    }
+    .analysis-card:hover::before {
+      filter: blur(0.5px) brightness(1.1);
+      opacity: 0.62;
+      box-shadow: 0 0 16px #47aaff66;
+      transition: 0.18s;
+    }
+    .analysis-card:hover .analysis-card-inner {
+      box-shadow: 0 7px 18px #47aaff13, 0 2px 6px #22335a19;
+      transform: translateY(-1px) scale(1.01);
+      z-index:2;
+      background: linear-gradient(110deg,#264c8f 70%,#47aaff11 120%);
+      transition: 0.15s;
+    }
+    .analysis-quote {
+      background: linear-gradient(90deg,#32416933 70%,#ffb44f14 120%);
+      color: #ffe0a0;
+      border-radius: 7px;
+      padding: 12px 15px;
+      font-size: 1.06em;
+      margin-bottom: 12px;
+      border-left: 4px solid #ffb44f;
+      font-weight: bold;
+      letter-spacing: 0.01em;
+      box-shadow: 0 1px 4px #0001;
+    }
+    .analysis-labels {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 7px;
+    }
+    .analysis-label {
+      background: linear-gradient(90deg, #338edc 50%, #47aaff 100%);
+      color: #fff;
+      font-size: 0.98em;
+      font-weight: bold;
+      border-radius: 6px;
+      padding: 3px 12px 2px 12px;
+      letter-spacing: 0.07em;
+      box-shadow: 0 1px 4px #233b6811;
+      border-bottom: 2px solid #ffe6b044;
+      transition: background .19s,color .17s,transform .16s;
+      cursor: default;
+      filter: drop-shadow(0 1px 1px #338edc12);
+    }
+    .analysis-label:hover {
+      background:linear-gradient(90deg,#47aaff 60%,#ffc445 120%);
+      color: #22335a;
+      transform: translateY(-1.5px) scale(1.035);
+    }
+    .analysis-points {
+      margin-left: 1.1em;
+      margin-bottom: 0.2em;
+      padding-left: 0.2em;
+    }
+    .analysis-points li {
+      margin-bottom: 4px;
+      line-height: 1.8;
+      font-size: 0.99em;
+      transition: color .18s;
+    }
+    .analysis-key {
+      color: #ff7e7e;
+      font-weight: bold;
+      font-size:1.01em;
+      letter-spacing:0.02em;
+    }
+    .analysis-purpose {
+      color: #9cf6c7;
+      font-weight: bold;
+      font-size:1.01em;
+      letter-spacing:0.02em;
+    }
+    .analysis-warning {
+      color: #ffd700;
+      font-weight: bold;
+      font-size:1.01em;
+      letter-spacing:0.02em;
+    }
+    @media (max-width: 900px) {
+      .analysis-section { max-width:100vw; padding:0 1vw;}
+      .analysis-list { width: 100%; }
+      .analysis-card { width: 100%; }
+      .analysis-card-inner { padding: 12px 2vw 9px 2vw; font-size: 0.97em;}
+      .analysis-quote { font-size: 0.97em; }
+      .analysis-label { font-size: 0.9em; padding: 2px 8px;}
+      .analysis-section .lead { padding: 10px 2vw 8px 2vw;}
+      .analysis-title { font-size: 1.3em; padding-left: 8px; }
+      .analysis-title-sub { font-size: 0.95em; padding-left: 7px;}
+    }
+    @media (max-width: 600px) {
+      .analysis-section { margin: 15px 0 22px 0; }
+      .analysis-list { width: 100%; }
+      .analysis-card { width: 100%; }
+      .analysis-card-inner { padding: 8px 1vw 7px 1vw; border-radius:8px;}
+      .analysis-label { font-size: 0.82em; padding: 2px 6px;}
+      .analysis-quote { font-size:0.89em; padding: 7px 6px;}
+      .analysis-list {gap:10px;}
+      .analysis-title { font-size:1em; padding-left:5px;}
+      .analysis-title-sub { font-size:0.88em; padding-left:4px;}
+    }
+    #backToTop {
+      position: fixed;
+      right: 22px;
+      bottom: 52px;
+      z-index: 1200;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(120deg, #338edc 70%, #23418b 100%);
+      color: #fff;
+      border: none;
+      font-size: 1.3em;
+      box-shadow: 0 2px 8px #233b6840;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.18s, color 0.15s, transform 0.12s;
+      font-weight: bold;
+    }
+    #backToTop:hover {
+      background: #ffc445;
+      color:#22335a;
+      transform: scale(1.10);
+      box-shadow:0 4px 16px #ffc44544;
+    }
+    .watermark {
+      position: fixed;
+      right: 12px;
+      bottom: 10px;
+      font-size: 1.3em;
+      color: rgba(255,255,255,0.19);
+      font-weight: bold;
+      text-shadow: 0 0 4px #0005;
+      user-select: none;
+      pointer-events: none;
+      z-index: 9999;
+      letter-spacing: 0.02em;
+      font-family: "Noto Sans TC", "Segoe UI", Arial, sans-serif;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <div class="watermark">貓崎雪浮水印</div>
+  <button id="backToTop" title="回到頂部" aria-label="回到頂部">↑</button>
+  <div class="analysis-section">
+    <div class="analysis-title-wrap">
+      <div class="analysis-title">
+        <span class="analysis-title-icon">🧠</span>
+        心理霸凌分析
+      </div>
+      <div class="analysis-title-sub">
+        語氣操控・逐句話語心理解構
+      </div>
+    </div>
+    <hr class="analysis-title-divider">
+    <div class="lead">
+      以下內容針對對方所有發言，<b>逐句剖析其語氣、心理手法、詭辯與話語操控</b>。<br>
+      <span class="highlight">重點不在反駁，而是揭示這些話語在心理層面如何造成壓力、孤立、操控與疑慮。</span><br>
+      <span class="danger">這些語言雖未必涉及法律誹謗，但屬於心理霸凌、語言操控、邏輯詭辯等「灰色暴力」行為，長期會對受害者造成極大心理影響。</span>
+    </div>
+
+      <!-- analysis-card -->
+    <div class="analysis-list">
+      <div class="analysis-card">
+        <div class="analysis-card-inner">
+          <div class="analysis-quote">針對妳提出的賭局 我早就說過妳就公開我們之間所有DC密語對話不敢公開 妳就閉嘴我缺啥自信?</div>
+          <div class="analysis-labels">
+            <span class="analysis-label">激將法</span>
+            <span class="analysis-label">話語壓迫</span>
+            <span class="analysis-label">心理操控</span>
+          </div></div>
+          <ul class="analysis-points">
+            <li><span class="analysis-key">話術手法：</span>「不敢公開」「妳就閉嘴」屬於激將法與話語壓迫，用來施加心理壓力，強迫對方在不合理的條件下做出回應或自證清白。</li>
+            <li><span class="analysis-purpose">情緒操作：</span>以「我缺啥自信？」暗示自己理直氣壯，把被質疑壓力轉嫁給你，讓你陷入「不公開＝心虛」的困境。</li>
+            <li><span class="analysis-key">邏輯誤導：</span>混淆「不公開」＝「不敢公開」，忽略隱私、證據時機等正當理由，強行貼標籤。</li>
+          </ul>
+        </div>
+
+      <div class="analysis-card">
+        <div class="analysis-card-inner">
+          <div class="analysis-quote">針對妳提出的賭局 我早就說過妳就公開我們之間所有DC密語對話不敢公開 妳就閉嘴我缺啥自信?</div>
+          <div class="analysis-labels">
+            <span class="analysis-label">激將法</span>
+            <span class="analysis-label">話語壓迫</span>
+            <span class="analysis-label">心理操控</span>
+          </div></div>
+          <ul class="analysis-points">
+            <li><span class="analysis-key">話術手法：</span>「不敢公開」「妳就閉嘴」屬於激將法與話語壓迫，用來施加心理壓力，強迫對方在不合理的條件下做出回應或自證清白。</li>
+            <li><span class="analysis-purpose">情緒操作：</span>以「我缺啥自信？」暗示自己理直氣壯，把被質疑壓力轉嫁給你，讓你陷入「不公開＝心虛」的困境。</li>
+            <li><span class="analysis-key">邏輯誤導：</span>混淆「不公開」＝「不敢公開」，忽略隱私、證據時機等正當理由，強行貼標籤。</li>
+          </ul>
+        </div>
+
+      <div class="analysis-card">
+        <div class="analysis-card-inner">
+          <div class="analysis-quote">有截到時間我反擊是有錯喔?存圖證據?那妳這些刻意PO出疑似騷擾的對話 算個啥?其它又不PO</div>
+    <div class="analysis-labels">
+      <span class="analysis-label">轉移焦點</span>
+      <span class="analysis-label">雙重標準</span>
+      <span class="analysis-label">責任推卸</span>
+      <span class="analysis-label">語氣壓迫</span>
+    </div></div>
+    <ul class="analysis-points">
+      <li><span class="analysis-key">轉移焦點：</span>將對方提出的證據反過來質疑，試圖模糊原本的爭議主題。</li>
+      <li><span class="analysis-key">雙重標準：</span>用「你沒全部PO」來否認你公開的證據合理性，卻不檢討自己言論本身。</li>
+      <li><span class="analysis-key">責任推卸：</span>用「我反擊就錯？」將自己的攻擊合理化，否認自己行為帶來的傷害。</li>
+      <li><span class="analysis-key">語氣壓迫：</span>連續反問句，讓人無法一一回應，造成心理壓力。</li>
+    </ul>
+  </div>
+
+      <div class="analysis-card">
+        <div class="analysis-card-inner">
+          <div class="analysis-quote">賭局不對等 那叫賭 沒半點好處我幹嘛要賭妳邏妳邏輯還行?我會打這留言板 是妳前幾天 先改名片偷嘴人</div>
+    <div class="analysis-labels">
+      <span class="analysis-label">合理化拒絕</span>
+      <span class="analysis-label">邏輯顛倒</span>
+      <span class="analysis-label">語帶貶低</span>
+      <span class="analysis-label">轉移話題</span>
+    </div></div>
+    <ul class="analysis-points">
+      <li><span class="analysis-key">合理化拒絕：</span>用「沒好處不賭」否認賭局本質，是在規避承諾、不願對話。</li>
+      <li><span class="analysis-key">邏輯顛倒：</span>指責你「偷嘴人」來為自己發言開脫，把責任推回給你。</li>
+      <li><span class="analysis-key">語帶貶低：</span>「妳邏輯還行？」屬於人身貶低，暗示你腦筋不好。</li>
+      <li><span class="analysis-key">轉移話題：</span>將話題從賭局本身帶到你是否「偷嘴」，避免正面回應問題。</li>
+    </ul>
+  </div>
+
+      <div class="analysis-card">
+        <div class="analysis-card-inner">
+          <div class="analysis-quote">為啥不肯收手老是在背後搞新的事情 是不是當我好欺負阿三不五時來鬧妳執著真不是一般噁心佩服</div>
+    <div class="analysis-labels">
+      <span class="analysis-label">受害者反轉</span>
+      <span class="analysis-label">語氣羞辱</span>
+      <span class="analysis-label">暗示性指控</span>
+    </div></div>
+    <ul class="analysis-points">
+      <li><span class="analysis-key">受害者反轉：</span>把自己塑造成被害者，反而指控你不肯收手、執著，讓旁觀者誤以為你才是糾纏不休的一方。</li>
+      <li><span class="analysis-key">語氣羞辱：</span>「噁心佩服」屬於直接羞辱，提升攻擊力道。</li>
+      <li><span class="analysis-key">暗示性指控：</span>「背後搞事」、「當我好欺負」都是模糊指控，未舉證據卻製造你性格有問題的印象。</li>
+    </ul>
+  </div>
+
+      <div class="analysis-card">
+        <div class="analysis-card-inner">
+          <div class="analysis-quote">吃的藥 影響記憶 自己說過的話做過的事情 都可以當作沒發生別人討論妳=抹黑 邏輯100分 妳被怕討論</div>
+    <div class="analysis-labels">
+      <span class="analysis-label">醫療歧視</span>
+      <span class="analysis-label">邏輯詭辯</span>
+      <span class="analysis-label">語帶譏諷</span>
+      <span class="analysis-label">否定現實</span>
+    </div></div>
+    <ul class="analysis-points">
+      <li><span class="analysis-key">醫療歧視：</span>用「吃的藥」質疑你記憶力與可信度，屬於對精神疾病的污名與歧視。</li>
+      <li><span class="analysis-key">邏輯詭辯：</span>「別人討論妳=抹黑」混淆事實，將不實言論包裝成「討論」以逃避誹謗責任。</li>
+      <li><span class="analysis-key">語帶譏諷：</span>「邏輯100分」、「妳被怕討論」等語句帶有明顯嘲諷與否定。</li>
+      <li><span class="analysis-key">否定現實：</span>認為精神病患的發言都不可信，是典型的偏見與轉移焦點。</li>
+    </ul>
+  </div>
+
+      <div class="analysis-card">
+        <div class="analysis-card-inner">
+          <div class="analysis-quote">至於 報案時間 也過一年了妳慢慢等 肯定拖到時間過事實就是沒收到 不要想威脅我 醒醒 憂鬱症 真好用阿</div>
+    <div class="analysis-labels">
+      <span class="analysis-label">淡化法律程序</span>
+      <span class="analysis-label">再次醫療羞辱</span>
+      <span class="analysis-label">語帶不屑</span>
+      <span class="analysis-label">合理化自身立場</span>
+    </div></div>
+    <ul class="analysis-points">
+      <li><span class="analysis-key">淡化法律程序：</span>將法律查證的時間合理性說成「拖延」，暗示你報案只是恐嚇手段。</li>
+      <li><span class="analysis-key">再次醫療羞辱：</span>「憂鬱症真好用」貶低精神傷害的嚴肅性，否認受害者狀態。</li>
+      <li><span class="analysis-key">語帶不屑：</span>「醒醒」屬於語氣霸凌，意圖心理壓制。</li>
+      <li><span class="analysis-key">合理化自身立場：</span>「不要想威脅我」將自己的被動化為對方的主動攻擊。</li>
+    </ul>
+  </div>
+
+
+      <div class="analysis-card">
+        <div class="analysis-card-inner">
+          <div class="analysis-quote">還多聽到不少瓜 妳跟正常人的邏輯 不一樣 10分鐘同一件事情=多次提出這是真的很無敵拉</div>
+    <div class="analysis-labels">
+      <span class="analysis-label">貼標籤</span>
+      <span class="analysis-label">輕描淡寫</span>
+      <span class="analysis-label">群眾訴諸</span>
+    </div></div>
+    <ul class="analysis-points">
+      <li><span class="analysis-key">貼標籤：</span>「你跟正常人邏輯不一樣」直接否定你的思考方式，屬於心理攻擊。</li>
+      <li><span class="analysis-key">輕描淡寫：</span>把事情縮短成「10分鐘」，刻意弱化你的受害狀況。</li>
+      <li><span class="analysis-key">群眾訴諸：</span>「還多聽到不少瓜」強調小道消息、八卦，造成你形象受損。</li>
+    </ul>
+  </div>
+
+
+      <div class="analysis-card">
+        <div class="analysis-card-inner">
+          <div class="analysis-quote">我從一開始到現在 從沒造搖妳 都是妳實際做出來的事情我講妳又怎樣 反倒是妳一直用 騷擾對話 在抹黑我</div>
+    <div class="analysis-labels">
+      <span class="analysis-label">否定事實</span>
+      <span class="analysis-label">反指控</span>
+      <span class="analysis-label">合理化攻擊</span>
+    </div></div>
+    <ul class="analysis-points">
+      <li><span class="analysis-key">否定事實：</span>「從沒造謠」直接否認既成事實，屬於話語否認策略。</li>
+      <li><span class="analysis-key">反指控：</span>將你澄清的行為污名化為「騷擾」、「抹黑」，製造雙方對等假象。</li>
+      <li><span class="analysis-key">合理化攻擊：</span>「我講妳又怎樣」是在合理化自己的行為，否認對你的傷害。</li>
+    </ul>
+  </div>
+
+
+      <div class="analysis-card">
+        <div class="analysis-card-inner">
+          <div class="analysis-quote">在來 對妳退坑以及排行 妳在 Dcard 文章内打的 還記得嗎 退坑85掛帳號賣不掉 這都是事實</div>
+    <div class="analysis-labels">
+      <span class="analysis-label">選擇性引用</span>
+      <span class="analysis-label">質疑誠信</span>
+      <span class="analysis-label">強調「都是事實」</span>
+    </div></div>
+    <ul class="analysis-points">
+      <li><span class="analysis-key">選擇性引用：</span>只挑選對你不利的內容，忽略事件全貌。</li>
+      <li><span class="analysis-key">質疑誠信：</span>「賣不掉」暗示你說謊或事實不符，試圖削弱你的可信度。</li>
+      <li><span class="analysis-key">強調「都是事實」：</span>自信語氣讓旁人誤以為內容已被證實。</li>
+    </ul>
+  </div>
+
+
+      <div class="analysis-card">
+        <div class="analysis-card-inner">
+          <div class="analysis-quote">就是妳有問題 還請妳知道這一點 我可從沒說過 無法全部公開 最初是給妳面子但現在沒耐心了要亂就一起亂</div>
+    <div class="analysis-labels">
+      <span class="analysis-label">強迫自證</span>
+      <span class="analysis-label">合理化公開</span>
+      <span class="analysis-label">語氣威脅</span>
+    </div></div>
+    <ul class="analysis-points">
+      <li><span class="analysis-key">強迫自證：</span>用「妳有問題」「只能妳主動公開」等話，強行將舉證責任轉嫁給你。</li>
+      <li><span class="analysis-key">合理化公開：</span>「最初給妳面子」把自己塑造成寬容者，掩蓋攻擊性。</li>
+      <li><span class="analysis-key">語氣威脅：</span>「現在沒耐心了要亂就一起亂」屬於情緒勒索，增加對方壓力。</li>
+    </ul>
+  </div>
+
+      <div class="analysis-card">
+        <div class="analysis-card-inner">
+          <div class="analysis-quote">這邊聲明 我願意 可以公開 跟妳的所有對話但我DC已經案掉 妳也改DC名稱只能從妳那主動開放 如果妳不肯全公開</div>
+    <div class="analysis-labels">
+      <span class="analysis-label">強迫自證</span>
+      <span class="analysis-label">責任轉嫁</span>
+      <span class="analysis-label">語氣勒索</span>
+    </div></div>
+    <ul class="analysis-points">
+      <li><span class="analysis-key">強迫自證：</span>把資料公開的責任推給你，讓你背負「不公開＝心虛」的壓力。</li>
+      <li><span class="analysis-key">責任轉嫁：</span>用「只能你主動開放」完全規避自己責任。</li>
+      <li><span class="analysis-key">語氣勒索：</span>帶有「不公開就是有鬼」的語氣，營造你有錯的印象。</li>
+    </ul>
+  </div>
+
+      <div class="analysis-card">
+        <div class="analysis-card-inner">
+          <div class="analysis-quote">妳還有 其他意見 自己我 妳不是要協商?妳自己的名聲自己清楚我根本沒有必要抹黑妳妳就自爆了</div>
+    <div class="analysis-labels">
+      <span class="analysis-label">否認責任</span>
+      <span class="analysis-label">人格否定</span>
+      <span class="analysis-label">協商詭辯</span>
+    </div></div>
+    <ul class="analysis-points">
+      <li><span class="analysis-key">否認責任：</span>「我根本沒有必要抹黑」用來撇清自身行為，將問題歸咎於你。</li>
+      <li><span class="analysis-key">人格否定：</span>「妳就自爆了」意圖讓你自我懷疑，屬心理控制常見手法。</li>
+      <li><span class="analysis-key">協商詭辯：</span>「協商」本應理性，但這裡用來質疑你真誠，讓對話失去平等基礎。</li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<script>
+   // 防右鍵、拖曳下載
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('dragstart', e => e.preventDefault());
+    video.addEventListener('keydown', e => e.preventDefault());
+
+    // 禁止複製事件（全站）
+    document.addEventListener('copy', function(e) {
+      e.preventDefault();
+      alert('禁止複製本頁內容！');
+    });
+</script>
+<script>
+const backToTop = document.getElementById('backToTop');
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 380) backToTop.style.display = 'flex';
+  else backToTop.style.display = 'none';
+});
+backToTop.addEventListener('click', function() {
+  window.scrollTo({top: 0, behavior: 'smooth'});
+});
+</script>
+<script>
+    // 讓使用者按 ESC 也能關閉面板
+    document.addEventListener('keydown', function(e){
+      if(e.key === "Escape") {
+        document.querySelector('.privacy-panel').classList.remove('active');
+      }
+    });
+    // 點擊 panel 以外區域自動關閉（可選）
+    document.addEventListener('click', function(e){
+      var panel = document.querySelector('.privacy-panel');
+      if (panel.classList.contains('active')) {
+        if (!panel.contains(e.target) && !e.target.classList.contains('privacy-toggle-btn')) {
+          panel.classList.remove('active');
+        }
+      }
+    });
+  </script>
+
+<script>
+  // 隱私權政策摺疊功能
+  function togglePrivacyPanel() {
+    const panel = document.getElementById('privacyPanel');
+    const isOpen = panel.classList.toggle('active');
+    panel.setAttribute('aria-hidden', !isOpen);
+    if(isOpen){
+      panel.focus();
+      setTimeout(()=>{ panel.scrollIntoView({behavior:'smooth', block:'end'}); }, 100);
+    }
+  }
+  document.addEventListener('keydown', function(e){
+    if(e.key === "Escape"){
+      document.getElementById('privacyPanel').classList.remove('active');
+    }
+  });
+</script>
+
+<style>
+/* 隱私權政策專用CSS，可直接貼在你原本的style後面 */
+footer {
+  background: #232323;
+  color: #fff;
+  padding: 24px 0 16px 0;
+  text-align: center;
+  position: relative;
+}
+.privacy-toggle-btn {
+  background: #fff;
+  color: #232323;
+  border: none;
+  outline: none;
+  font-size: 1em;
+  padding: 10px 32px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px #0002;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  font-weight: bold;
+  margin-bottom: 10px;
+  letter-spacing: 0.1em;
+}
+.privacy-toggle-btn:active {
+  background: #eaeaea;
+}
+.privacy-panel {
+  max-width: 680px;
+  margin: 0 auto;
+  background: #22305a; /* 深藍色 */
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px #0001;
+  padding: 18px 18px 10px 18px;
+  text-align: left;
+  font-size: 1em;
+  line-height: 1.82;
+  position: relative;
+  margin-bottom: 10px;
+  display: none;
+  animation: fadeIn 0.3s;
+  z-index: 2;
+}
+.privacy-panel.active {
+  display: block;
+  animation: fadeIn 0.25s;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+  .privacy-panel h2 {
+    font-size: 1.25em;
+    margin-top: 1.6em;
+    margin-bottom: 0.5em;
+    color: #8abfff; /* 輕微亮藍，可加強辨識 */
+    font-weight: bold;
+  }
+  .privacy-panel ul { margin: 0 0 1em 1.2em; }
+  .privacy-panel li { margin-bottom: 0.5em; }
+  .privacy-close-btn {
+    position: absolute;
+    right: 14px;
+    top: 12px;
+    font-size: 1.4em;
+    background: transparent;
+    border: none;
+    color: #b0c7ff;
+    cursor: pointer;
+    padding: 2px 8px;
+    border-radius: 4px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .privacy-close-btn:hover {
+    background: #294380;
+    color: #fff;
+  }
+  /* 捲軸優化（深色風格） */
+  .privacy-panel {
+    scrollbar-color: #3b4a77 #22305a;
+    scrollbar-width: thin;
+  }
+  .privacy-panel::-webkit-scrollbar {
+    width: 8px;
+    background: #22305a;
+  }
+  .privacy-panel::-webkit-scrollbar-thumb {
+    background: #3b4a77;
+    border-radius: 6px;
+  }
+  @media (max-width: 600px) {
+    .privacy-panel {
+      max-width: 98vw;
+      padding: 12px 6vw 8px 6vw;
+      font-size: 0.98em;
+    }
+    .privacy-toggle-btn {
+      width: 90vw;
+      max-width: 400px;
+      font-size: 1em;
+    }
+}
+</style>
+
+<!-- ====== 隱私權政策 Footer 區塊放這裡 ====== -->
+  <footer>
+    <button class="privacy-toggle-btn" onclick="document.querySelector('.privacy-panel').classList.add('active')">
+      隱私權政策
+    </button>
+  <div id="privacyPanel" class="privacy-panel" tabindex="-1" aria-hidden="true">
+    <button class="privacy-close-btn" onclick="togglePrivacyPanel()" aria-label="關閉">&times;</button>
+    <h2>賭局 隱私權政策</h2>
+    <p>歡迎您使用「賭局」（以下簡稱本網站）。為保障您的隱私權與個人資料安全，請詳閱本政策內容，當您使用本網站時，即表示您同意本政策。</p>
+    <hr>
+   <h2>一、資料蒐集範圍</h2>
+<p>
+本網站會依實際服務需求，蒐集下列個人資料，並分別說明如下：
+</p>
+<ol>
+  <li>
+    <b>聯絡資訊</b>
+    <ul>
+      <li>蒐集情境：當用戶透過聯絡表單、電子郵件或其他管道，主動與我們聯絡或提交案件時。</li>
+      <li>使用目的：用於案件聯繫、身份確認、通知案件進度。</li>
+      <li>保存原則：僅於案件處理及爭議/訴訟需要期間保存，相關程序終止後即刪除。</li>
+    </ul>
+  </li>
+  <li>
+    <b>身分證明文件</b>
+    <ul>
+      <li>蒐集情境：當案件或第三方權益人需要進行身份驗證時，管理員得請求您提供身分證明文件。</li>
+      <li>使用目的：僅用於核對身份、避免冒名申請、維護案件公正性。</li>
+      <li>保存原則：訴訟結束後即予銷毀，不會另作他用。</li>
+    </ul>
+  </li>
+  <li>
+    <b>證據資料（截圖、影片、對話紀錄等）</b>
+    <ul>
+      <li>蒐集情境：當用戶主動上傳案件相關證據時。</li>
+      <li>蒐集項目：截圖、影片、文字紀錄、文件等。</li>
+      <li>使用目的：僅用於案件審核、糾紛處理、依法配合司法或訴訟程序。</li>
+      <li>保存原則：於案件、爭議或訴訟終止後即予刪除，除法律另有規定。</li>
+    </ul>
+  </li>
+  <li>
+    <b>第三方資訊</b>
+    <ul>
+      <li>蒐集情境：用戶所上傳的證據資料中，可能包含第三方之個人資料（如姓名、肖像、聯絡方式、對話內容等）。</li>
+      <li>蒐集項目：第三方姓名、肖像、聯絡方式、對話或其他可識別資訊。</li>
+      <li>使用目的：僅限於案件審核、糾紛處理、配合司法或訴訟程序之需要，不會用於其他目的或商業用途。</li>
+      <li>保存原則：與案件相關資料一併保存，於案件、爭議或訴訟終止後即予刪除，除法律另有規定。</li>
+      <li>第三方權益：若第三方認為其權益受損，可依本網站申訴流程提出刪除或遮蔽申請，網站將依法審查處理。</li>
+    </ul>
+  </li>
+  <li><strong>本網站不會主動蒐集您的IP位址、瀏覽器資訊、使用時間等技術性資料，亦不會使用Cookies或其他追蹤技術</strong>。所有蒐集之資料，僅限於本網站服務、案件處理及法定必要用途，絕不會用於任何商業或行銷用途。  </li>
+    </ul>
+    <hr>
+    <h2>二、資料使用方式</h2>
+    <ul>
+      <li>以上資料將僅用於<b>案件聲明、糾紛佐證、用戶間爭議處理</b>等本網站訴訟範圍內之用途。</li>
+      <li>本網站<b>不會將您的個人資料用於其他用途</b>，也不會出售、交換、出租，除非經您同意或法律要求。</li>
+      <li>若您主動公開留言、上傳截圖或影片，該內容可能會被其他用戶所見，請自行斟酌是否公開。</li>
+    </ul>
+    <hr>
+    <h2>三、資料安全與保護</h2>
+    <ul>
+      <li>本網站採取合理資訊安全措施，保障資料安全。</li>
+      <li>僅有授權人員可依業務需要查閱您的資料，未經授權人員不得擅自存取。</li>
+<li><b>非公開個人資料</b>，係指用戶向本網站管理員所提供，但<strong>未在本網站公開展示</strong>，僅限管理員或特定人員查閱之個人相關資訊。<br></li>
+  <li>例如：用戶透過聯絡表單或電子郵件提交的截圖、證據檔案、聯絡方式等，若尚未公開於本網站，均屬於非公開個人資料。<br></li>
+  <li><b>一旦資料被公開展示於本網站（如留言區、證據區、公開截圖等），即不再屬於非公開個人資料。</b></li>
+    </ul>
+    <hr>
+<h2>四、用戶權利</h2>
+<ul>
+  <li>您可依個人資料保護法，向我們請求查詢、閱覽、複製、補充、更正、停止蒐集、處理、利用或刪除您的個人資料。</li>
+  <li>若您有上述需求，請透過本網站聯絡我們，並請提供可識別身分之相關資訊。</li>
+  <li>用戶上傳但尚未公開於本網站的截圖、影片或相關檔案，經本人申請且審核同意後，得請求刪除。</li>
+  <li><b>已公開展示於本網站的證據資料（如截圖、影片等），原則上不受理刪除或更正申請，除非法律另有強制規定或經雙方協議。</b></li>
+  <li>您如欲撤回同意本網站處理您的個人資料，請與我們聯絡。撤回同意後，網站將停止處理您的個人資料，但已公開之內容原則上不作刪除或修正，除非法律另有強制規定。</li>
+  <li>您的個人資料將依本網站營運及訴訟需求保存，除法律另有規定外，於相關訴訟終止後即予刪除。</li>
+</ul>
+    <hr>
+<h2>五、政策修改</h2>
+<ul>
+  <li>本政策如有修正，將公布於本網站，恕不另行個別通知。</li>
+  <li>本網站有權隨時依實際需要及法令規定調整本政策內容，建議您隨時留意本頁公告內容。</li>
+  <li>重大變更事項（如資料蒐集範圍、使用目的調整等），本網站將於首頁或會員頁面顯著公告。</li>
+  <li>新修訂政策自公告日起生效，除非另有說明。</li>
+  <li>如您不同意修正內容，請立即停止使用本網站。惟因案件處理或法律規定，您所提供之資料將依法保存，無法任意刪除。</li>
+</ul>    <hr>
+    <p><b>貓崎雪 敬上</b></p>
+  </div>
+    <div style="margin-top:14px;font-size:0.97em;opacity:0.85;">
+      &copy; 2025 Your Website Name
+    </div>
+
+<!-- ====== 隱私權政策 Footer 區塊結束 ====== -->
+</footer>
+</body>
+</html>
